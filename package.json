@@ -1,16 +1,23 @@
 {
-  "name": "ducky",
-  "displayName": "ducky",
-  "description": "",
-  "version": "0.0.1",
+  "name": "ducky-pet",
+  "displayName": "Ducky - Your virtual pet duck",
+  "description": "Ducky is a VSCode extension that adds a cute pet duck to the status bar of your editor.",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.75.0"
   },
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "fun",
+    "statusbar",
+    "duck",
+    "ducky",
+    "pet"
+  ],
   "activationEvents": [
-    "*"
+    "onStartupFinished"
   ],
   "contributes": {
     "icons": {
@@ -28,9 +35,28 @@
             "fontCharacter": "\\42"
         }
       }
+    },
+    "configuration":{
+      "title": "Ducky",
+      "properties": {
+        "ducky.distance": {
+          "type": "number",
+          "default": 25,
+          "description": "How many steps (characters) to walk"
+        },
+        "ducky.pace": {
+          "type": "number",
+          "default": 150,
+          "description": "How much time does a step take (in milliseconds)"
+        }
+      }
     }
   },
   "main": "./dist/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/szogyenyid/ducky.git"
+  },
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "webpack",

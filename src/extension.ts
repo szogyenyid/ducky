@@ -29,23 +29,40 @@ function runDucky() {
 	duckyRunningSpace.show();
 	var steps = 0;
 	var reverse = false;
+	let distance = vscode.workspace.getConfiguration("ducky").get("distance", 25);
+	let pace = vscode.workspace.getConfiguration("ducky").get("pace", 150);
+	var finalText = "";
+	if (distance > 40) {
+		if (pace < 200) {
+			finalText = "I love running marathons!";
+		} else {
+			finalText = "I great walking tour as always a pleasure.";
+		}
+	} else {
+		if (pace < 200) {
+			finalText = "I wanna be the new Usain Bolt, thanks for practicing with me!";
+		} else {
+			finalText = "That was a nice little walk, thank you!";
+		}
+
+	}
 	var running = setInterval(() => {
 		var duckySteps = "_ ".repeat(steps);
 		var icon = !reverse ? "$(ducky-icon)" : "$(ducky-reverse-icon)";
 		duckyRunningSpace.text = `${duckySteps} ${icon} `;
 		duckyRunningSpace.color = "yellow";
-		if (steps > 10 && !reverse) {
+		if (steps > distance && !reverse) {
 			reverse = true;
 		}
 		reverse ? steps-- : steps++;
 		if (steps < 0 && reverse) {
-			duckyRunningSpace.text += " < It was a nice little walk, thanks!";
+			duckyRunningSpace.text += ` < ${finalText}`;
 			setTimeout(() => {
 				clearInterval(running);
 				duckyRunningSpace.hide();
 			}, 2000);
 		}
-	}, 200);
+	}, pace);
 }
 
 // This method is called when your extension is deactivated
